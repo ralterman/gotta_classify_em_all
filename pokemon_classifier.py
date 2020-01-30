@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 import matplotlib.pyplot as plt
-import seaborn
+import seaborn as sns
 
 pd.options.display.max_rows = 1000
 
@@ -105,8 +105,38 @@ pokemon = pokemon.shift()[1:]
 pokemon = pokemon.rename_axis('Pokedex_Num', axis='columns')
 
 
+def get_legendary(url):
+    idx = 0
+    legend_list = []
+    page = requests.get(url)
+    soup = BeautifulSoup(page.content, 'html.parser')
+    item = soup.find_all('td', align='center')
+    while idx < len(item):
+        legend_list.append(item[idx].text)
+        idx += 3
+    return legend_list
+
+legends = get_legendary('https://www.serebii.net/pokemon/legendary.shtml')
+
+
+def mark_legends(row):
+    if row['Pokemon_Name'] in legends:
+        return 1
+    else:
+        return 0
+
+pokemon['Legendary'] = pokemon.apply(lambda x: mark_legends(x), axis=1)
+
 pokemon.to_csv('pokemon.csv')
 
+#-----------------------------------------------------------------------------------------------
 
 pokemon = pd.read_csv('pokemon.csv', index_col = 0)
 pokemon
+
+plt.figure(figsize=(20,10))
+ax = sns.heatmap(pokemon.corr(), annot=True, cmap='Greens')
+bottom, top = ax.get_ylim()
+ax.set_ylim(bottom + 0.5, top - 0.5)
+
+pd.plotting.scatter_matrix(pokemon.iloc[:, 2:], figsize=(25,8))
