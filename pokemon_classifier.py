@@ -17,6 +17,7 @@ pokedex = pokedex.loc[~pokedex.index.duplicated(keep='first')]
 split_types = pokedex['Type'].str.split(' ', n = 1, expand = True)
 pokedex['Type1'] = split_types[0]
 pokedex['Type2'] = split_types[1]
+
 pokedex = pokedex.drop(columns = ['Type', 'Total'])
 pokedex = pokedex.rename(columns={"Name": "Pokemon_Name", "Sp. Atk": "Special_Attack", "Sp. Def": "Special_Defense"})
 pokedex = pokedex.reindex(columns=['Pokemon_Name','Type1', 'Type2', 'HP', 'Attack', 'Defense', 'Special_Attack', 'Special_Defense', 'Speed'])
@@ -39,8 +40,34 @@ def default_name(row):
 pokedex['Pokemon_Name'] = pokedex.apply(default_name, axis = 1)
 
 
-pokedex['height_m'] = ""
-pokedex['weight_kg'] = ""
+def get_urls(num_of_pokemon):
+    url_list = []
+    url = 'https://pokeapi.co/api/v2/pokemon/?limit=' + str(num_of_pokemon)
+    response = requests.get(url)
+    poke_dict = response.json()
+    poke_list = poke_dict['results']
+    return poke_list
+
+def get_height_weight(poke_url_list):
+    info_list = []
+    info_list.append(('', ''))
+    for item in poke_url_list:
+        response2 = requests.get(item['url'])
+        info_dict = response2.json()
+        height = info_dict['height']/10
+        weight = info_dict['weight']/10
+        info_list.append((height, weight))
+    return info_list
+
+# hw_list = get_height_weight(get_urls(807))
+
+
+hw = pd.DataFrame(hw_list)
+hw = hw.rename(columns={0: 'Height_M', 1: 'Weight_KG'})
+pokemon = pd.concat([pokedex, hw], axis=1)
+pokemon = pokemon.drop(0, axis=0)
+pokemon = pokemon.drop(pokemon.index[807:])
+
 
 def get_height(row):
     pokemon = row['Pokemon_Name']
@@ -50,7 +77,10 @@ def get_height(row):
     page = requests.get(base_url)
     soup = BeautifulSoup(page.content, 'html.parser')
     item = soup.find_all('td', class_='fooinfo')
-    return item[-3].text.split('\t')[-1][:-1]
+    if item[-3].text.split('\t')[-1][:-1] == '':
+        return item[-6].text.split('\t')[-1][:-1]
+    else:
+        return item[-3].text.split('\t')[-1][:-1]
 
 def get_weight(row):
     pokemon = row['Pokemon_Name']
@@ -60,10 +90,23 @@ def get_weight(row):
     page = requests.get(base_url)
     soup = BeautifulSoup(page.content, 'html.parser')
     item = soup.find_all('td', class_='fooinfo')
-    print (pokemon)
-    return item[-2].text.split('\t')[-1][:-2]
+    if item[-2].text.split('\t')[-1][:-2] == '':
+        return item[-5].text.split('\t')[-1][:-2]
+    else:
+        return item[-2].text.split('\t')[-1][:-2]
 
-pokedex['height_m'] = pokedex.apply(lambda x: get_height(x), axis=1)
-pokedex['weight_kg'] = pokedex.apply(lambda x: get_weight(x), axis=1)
+pokemon2 = pokedex[807:810]
+pokemon2['Height_M'] = pokemon2.apply(lambda x: get_height(x), axis=1)
+pokemon2['Weight_KG'] = pokemon2.apply(lambda x: get_weight(x), axis=1)
 
-pokedex
+
+pokemon = pd.concat([pokemon, pokemon2], ignore_index=True)
+pokemon = pokemon.shift()[1:]
+pokemon = pokemon.rename_axis('Pokedex_Num', axis='columns')
+
+
+pokemon.to_csv('pokemon.csv')
+
+
+pokemon = pd.read_csv('pokemon.csv', index_col = 0)
+pokemon
