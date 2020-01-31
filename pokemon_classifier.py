@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+import numpy as np
 from sklearn.neighbors import KNeighborsClassifier
 import imblearn
 from imblearn.over_sampling import SMOTE
@@ -11,6 +12,8 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_sc
 from sklearn.ensemble import RandomForestClassifier
 from sklearn import svm, tree
 import xgboost
+from xgboost import plot_importance
+import pickle
 
 pd.options.display.max_rows = 1000
 
@@ -228,8 +231,56 @@ print (grid_search.best_params_)
 print (grid_search.best_estimator_)
 
 grid_predictions = grid_search.predict(X_test)
-grid.scorer_
+
 print(confusion_matrix(y_test, grid_predictions))
 print(classification_report(y_test, grid_predictions))
 
 model = svm.SVC(C=1000, kernel='rbf')
+model.fit(X_train, y_train)
+pickle.dump(model, open('model.pkl', 'wb'))
+
+param_grid2 = {
+    'learning_rate': [0.01, 0.05, 0.10, 0.15, 0.20, 0.25, 0.30],
+    'max_depth': [2, 4, 6, 8],
+    'min_child_weight': [1, 3, 5, 7],
+    'subsample': [0.3, 0.5, 0.7],
+    'n_estimators': [50, 100, 150],
+}
+
+grid_clf = GridSearchCV(xgboost.XGBClassifier(), param_grid2, scoring='f1', cv=None, n_jobs=1)
+xgb_gridsearch = grid_clf.fit(X_synth, y_synth)
+
+best_parameters = grid_clf.best_params_
+
+print('Grid Search found the following optimal parameters: ')
+for param_name in sorted(best_parameters.keys()):
+    print('%s: %r' % (param_name, best_parameters[param_name]))
+
+xgb_model = xgboost.XGBClassifier(learning_rate=0.1, max_depth=6, min_child_weight=1, n_estimators=100, subsample=0.7)
+
+
+test_preds = grid_clf.predict(X_test)
+
+print(confusion_matrix(y_test, test_preds))
+print(classification_report(y_test, test_preds))
+
+xgb_model.fit(X_synth, y_synth)
+print(xgb_model.feature_importances_)
+plt.bar(range(len(xgb_model.feature_importances_)), xgb_model.feature_importances_)
+plt.show()
+
+
+plot_importance(xgb_model)
+plt.show()
+
+def plot_feature_importances(model):
+    n_features = X_synth.shape[1]
+    plt.figure(figsize=(15,10))
+    plt.barh(range(n_features), model.feature_importances_, align='center')
+    plt.yticks(np.arange(n_features), X_train.columns.values)
+    plt.xlabel('Feature importance')
+    plt.ylabel('Feature')
+
+plot_feature_importances(xgb_model)
+
+xgboost.plot_importance(xgb_model.get_booster())
