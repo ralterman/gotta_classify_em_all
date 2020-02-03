@@ -1,2 +1,2 @@
-# pokemon
-Pokémon Classification Project
+# Pokémon
+See pokemon_classification.pdf for details
