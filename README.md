@@ -57,9 +57,11 @@ __Features: HP, Attack, Defense, Special Attack, Special Defense, Speed, Height,
 
 __Final model overall displayed 97% accuracy__
 
+---
+
 ## Feature Importance
 * Because SVM does not have feature importance with the rbf kernel, I ran a grid search on my XGBoost model, since it was also very good,   and calculated the feature importance on that model
-* Feature importance seems to match correlations with ‘legendary’ from heatmap, with 'Special Attack' appearing to have the most influence
+* Feature importance seems to match correlations with ‘Legendary’ from heatmap, with 'Special Attack' appearing to have the most influence
 
 <p align="center"><img src="https://github.com/ralterman/pokemon_classifier/blob/master/images/feature_importance.png"></p>
 
@@ -67,4 +69,4 @@ __Final model overall displayed 97% accuracy__
 
 <p align="center"><img src="https://github.com/ralterman/pokemon_classifier/blob/master/images/misclassifications.png"></p>
 
-* Misclassified Pokémon evidently displayed characteristics similar to the classes they were identified as being, i.e. non-legendary Pokémon having traits more similar to the average legendary Pokémon and vice versa
+* Misclassified Pokémon evidently displayed characteristics similar to the classes they were identified as members of, i.e. non-legendary   Pokémon having traits more similar to the average legendary Pokémon and vice versa
