@@ -65,7 +65,7 @@ __Final model overall displayed 97% accuracy__
 
 <p align="center"><img src="https://github.com/ralterman/pokemon_classifier/blob/master/images/feature_importance.png"></p>
 
-## Insight into Misclassifications - [pokemon.py](https://github.com/ralterman/pokemon_classifier/blob/master/pokemon.py                      "Misclassifications")
+## Insight into Misclassifications - [pokemon.py](https://github.com/ralterman/gotta_classify_em_all/blob/master/misclassifications.py        "Misclassifications")
 
 <p align="center"><img src="https://github.com/ralterman/pokemon_classifier/blob/master/images/misclassifications.png"></p>
 
