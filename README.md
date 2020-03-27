@@ -45,7 +45,7 @@ __Features: HP, Attack, Defense, Special Attack, Special Defense, Speed, Height,
 
 
 * Ran Grid Search on top-performing SVM model with C values ranging from 0.001 to 1000 (moving one decimal place to the right for each       value in that range) and for all possible kernel values
-* Optimal parameters were C = 1000 and kernel = rbf (radial)
+* Optimal parameters were C = 1000 and kernel = rbf (radial)*
 * Accuracy, Precision, and F1-Score all increased, while Recall dropped:
 
     | Model         | Accurary | Precision | Recall | F1-Score |
