@@ -18,7 +18,7 @@ __Features: HP, Attack, Defense, Special Attack, Special Defense, Speed, Height,
    * Concatenated those values to the Pokédex dataframe and dropped all Pokémon that were not included in the PokéAPI
 3. Utilized BeautifulSoup library to scrape heights and weights of any remaining Pokémon of interest from [Serebii](https://www.serebii.net/pokemon/ "Serebii")
 
-4. Got list of legendary Pokémon using BeautifulSoup library to scrape [Serebii](https://www.serebii.net/pokemon/legendary.shtml "Serebii Legendaries")
+4. Got list of legendary Pokémon from scraping [Serebii](https://www.serebii.net/pokemon/legendary.shtml "Serebii Legendaries") using        BeautifulSoup library
    * Marked all Pokémon in the dataframe as either legendary (1) or non-legendary (0)
 
 <p align="center"><img src="https://github.com/ralterman/pokemon_classifier/blob/master/images/data.png"></p>
