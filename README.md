@@ -36,9 +36,20 @@ __Features: HP, Attack, Defense, Special Attack, Special Defense, Speed, Height,
 * Performed SMOTE on training data to account for class imbalance since only about 10% of all Pokémon in the data were legendary —           synthesized more elements for the legendary class
 * Trained and tested 4 classification machine learning models — Decision Tree, Random Forest, XGBoost, and SVM:
 
-| Model         | Accurary | Precision | Recall | F1-Score |
-|:-------------:|:--------:|:---------:|:------:|:--------:|
-| Decision Tree | 0.90     | 0.50      | 0.62   | 0.56     |
-| Random Forest | 0.95     | 0.72      | 0.81   | 0.76     |
-| XGBoost       | 0.96     | 0.74      | 0.88   | 0.80     |
-| SVM           | 0.96     | 0.78      | 0.88   | 0.82     |
+    | Model         | Accurary | Precision | Recall | F1-Score |
+    |:-------------:|:--------:|:---------:|:------:|:--------:|
+    | Decision Tree | 0.90     | 0.50      | 0.62   | 0.56     |
+    | Random Forest | 0.95     | 0.72      | 0.81   | 0.76     |
+    | XGBoost       | 0.96     | 0.74      | 0.88   | 0.80     |
+    | _SVM_         | _0.96_   | _0.78_    | _0.88_ | _0.82_   |
+
+* Ran Grid Search on top-performing SVM model with C values ranging from 0.001 to 1000 (moving one decimal place to the right for each       value in that range) and for all possible kernel values
+* Optimal parameters were C = 1000 and kernel = rbf (radial)
+* Accuracy, Precision, and F1-Score all increased, while Recall dropped
+
+    | Model         | Accurary | Precision | Recall | F1-Score |
+    |:-------------:|:--------:|:---------:|:------:|:--------:|
+    | SVM (before)  | 0.96     | 0.78      | 0.88   | 0.82     |
+    | _SVM (after)_ | _0.97_   | _0.92_    | _0.75_ | _0.83_   |
+
+<p align="center"><img src="https://github.com/ralterman/pokemon_classifier/blob/master/images/confusion_matrix.png"></p>
