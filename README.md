@@ -17,5 +17,6 @@ __Features: HP, Attack, Defense, Special Attack, Special Defense, Speed, Height,
   * Used the API to grab each Pokémon's height and weight and converted them to meters and kilograms, respectively
   * Concatenated those values to the Pokédex dataframe and dropped all Pokémon that were not included in the PokéAPI
 3. Utilized BeautifulSoup library to scrape heights and weights of any remaining Pokémon of interest from [Serebii](https://www.serebii.net/pokemon/ "Serebii")
+
 4. Got list of legendary Pokémon using BeautifulSoup library to scrape [Serebii](https://www.serebii.net/pokemon/legendary.shtml "Serebii Legendaries")
 * Marked all Pokémon in the dataframe as either legendary (1) or non-legendary (0)
