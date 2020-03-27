@@ -10,7 +10,7 @@ __809 unique Pokémon (generations 1-7), 80 of them considered legendary__
 __Features: HP, Attack, Defense, Special Attack, Special Defense, Speed, Height, Weight__
 1. Used Pandas read_html function to scrape table of Pokémon and their attributes from the [Pokémon Database](https://pokemondb.net/pokedex/all "Pokémon Database")
    * Reset dataframe index to be the Pokédex number and dropped different sprites of the same Pokémon
-   * Separated 'Type' category into 'Type 1' and 'Type 2' when necessary, and dropped 'Total' category
+   * Separated 'Type' category into 'Type 1' and 'Type 2' when necessary, and dropped 'Total' category (althought 'Type' categories            ultimately not used for modeling)
    * Fixed special Pokémon name cases for API calls to work
 2. Leveraged the [PokéAPI](https://pokeapi.co/docs/v2.html "PokéAPI") for additional attributes
    * Got the URLs for all of the Pokémon via API call
@@ -43,9 +43,10 @@ __Features: HP, Attack, Defense, Special Attack, Special Defense, Speed, Height,
     | XGBoost       | 0.96     | 0.74      | 0.88   | 0.80     |
     | _SVM_         | _0.96_   | _0.78_    | _0.88_ | _0.82_   |
 
+
 * Ran Grid Search on top-performing SVM model with C values ranging from 0.001 to 1000 (moving one decimal place to the right for each       value in that range) and for all possible kernel values
 * Optimal parameters were C = 1000 and kernel = rbf (radial)
-* Accuracy, Precision, and F1-Score all increased, while Recall dropped
+* Accuracy, Precision, and F1-Score all increased, while Recall dropped:
 
     | Model         | Accurary | Precision | Recall | F1-Score |
     |:-------------:|:--------:|:---------:|:------:|:--------:|
@@ -53,3 +54,17 @@ __Features: HP, Attack, Defense, Special Attack, Special Defense, Speed, Height,
     | _SVM (after)_ | _0.97_   | _0.92_    | _0.75_ | _0.83_   |
 
 <p align="center"><img src="https://github.com/ralterman/pokemon_classifier/blob/master/images/confusion_matrix.png"></p>
+
+__Final model overall displayed 97% accuracy__
+
+## Feature Importance
+* Because SVM does not have feature importance with the rbf kernel, I ran a grid search on my XGBoost model, since it was also very good,   and calculated the feature importance on that model
+* Feature importance seems to match correlations with ‘legendary’ from heatmap, with 'Special Attack' appearing to have the most influence
+
+<p align="center"><img src="https://github.com/ralterman/pokemon_classifier/blob/master/images/feature_importance.png"></p>
+
+## Insight into Misclassifications - [pokemon.py](https://github.com/ralterman/pokemon_classifier/blob/master/pokemon.py                      "Misclassifications")
+
+<p align="center"><img src="https://github.com/ralterman/pokemon_classifier/blob/master/images/misclassifications.png"></p>
+
+* Misclassified Pokémon evidently displayed characteristics similar to the classes they were identified as being, i.e. non-legendary Pokémon having traits more similar to the average legendary Pokémon and vice versa
