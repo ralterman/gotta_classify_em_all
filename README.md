@@ -20,3 +20,25 @@ __Features: HP, Attack, Defense, Special Attack, Special Defense, Speed, Height,
 
 4. Got list of legendary Pokémon using BeautifulSoup library to scrape [Serebii](https://www.serebii.net/pokemon/legendary.shtml "Serebii Legendaries")
    * Marked all Pokémon in the dataframe as either legendary (1) or non-legendary (0)
+
+<p align="center"><img src="https://github.com/ralterman/pokemon_classifier/blob/master/images/data.png"></p>
+
+## Exploratory Data Analysis
+1. Correlation heatmap of Pokémon features
+  <p align="center"><img src="https://github.com/ralterman/pokemon_classifier/blob/master/images/heatmap.png"></p>
+
+2. Overlapping histograms showing the distributions of all features for non-legendary vs. legendary Pokémon
+  <p align="center"><img src="https://github.com/ralterman/pokemon_classifier/blob/master/images/histograms1.png"></p>
+  <p align="center"><img src="https://github.com/ralterman/pokemon_classifier/blob/master/images/histograms2.png"></p>
+
+## Modeling
+* Explanatory variables (aforementioned 8 features) vs. response variable of legendary or not
+* Performed SMOTE on training data to account for class imbalance since only about 10% of all Pokémon in the data were legendary —           synthesized more elements for the legendary class
+* Trained and tested 4 classification machine learning models — Decision Tree, Random Forest, XGBoost, and SVM:
+
+| Model         | Accurary | Precision | Recall | F1-Score |
+|:-------------:|:--------:|:---------:|:------:|:--------:|
+| Decision Tree | 0.90     | 0.50      | 0.62   | 0.56     |
+| Random Forest | 0.95     | 0.72      | 0.81   | 0.76     |
+| XGBoost       | 0.96     | 0.74      | 0.88   | 0.80     |
+| SVM           | 0.96     | 0.78      | 0.88   | 0.82     |
