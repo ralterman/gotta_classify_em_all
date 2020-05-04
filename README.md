@@ -7,8 +7,8 @@ To see if legendary Pokémon can be differentiated from non-legendary, and disco
 ## File Directory
 * [pokemon_classifier.py](https://github.com/ralterman/gotta_classify_em_all/blob/master/pokemon_classifier.py "pokemon_classifier.py File") - full code for classifier
 * [misclassifications.py](https://github.com/ralterman/gotta_classify_em_all/blob/master/misclassifications.py "misclassifications File") - reverse engineering code to discover the misclassified Pokémon to look into why they were misclassified
-* [pokemon.csv](https://github.com/ralterman/gotta_classify_em_all/blob/master/pokemon.csv "pokemon csv File") - CSV file of constructed     Pokémon data
-* [model.pkl](https://github.com/ralterman/gotta_classify_em_all/blob/master/model.pkl "model File") - final SVM model for Pokémon           classification
+* [pokemon.csv](https://github.com/ralterman/gotta_classify_em_all/blob/master/pokemon.csv "pokemon.csv File") - CSV file of constructed     Pokémon data
+* [model.pkl](https://github.com/ralterman/gotta_classify_em_all/blob/master/model.pkl "model.pkl File") - final SVM model for Pokémon           classification
 
 ## Data Cleaning/Preprocessing
 __809 unique Pokémon (generations 1-7), 80 of them considered legendary__
