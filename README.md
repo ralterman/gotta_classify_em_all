@@ -76,3 +76,5 @@ __Final model overall displayed 97% accuracy__
 <p align="center"><img src="https://github.com/ralterman/pokemon_classifier/blob/master/images/misclassifications.png"></p>
 
 * Misclassified Pokémon evidently displayed characteristics similar to the classes they were identified as members of, i.e. non-legendary   Pokémon having traits more similar to the average legendary Pokémon and vice versa
+
+### Check out my blog on [Medium](https://towardsdatascience.com/gotta-classify-em-all-5f341d0c0c2?source=friends_link&sk=b804ef9d22bd839d95c6ea3c406fee77 "Gotta Classify 'Em All Medium Blog") about this project! 
