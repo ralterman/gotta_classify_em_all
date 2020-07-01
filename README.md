@@ -1,6 +1,7 @@
 # Gotta Classify 'Em All
 ### _Classification model separating legendary from non-legendary Pokémon_
 
+---
 ## Goal
 To see if legendary Pokémon can be differentiated from non-legendary, and discover the underlying features that separate legendary Pokémon from their less esteemed counterparts.
 
