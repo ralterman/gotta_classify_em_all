@@ -16,7 +16,7 @@ __809 unique Pokémon (generations 1-7), 80 of them considered legendary__
 __Features: HP, Attack, Defense, Special Attack, Special Defense, Speed, Height, Weight__
 1. Used Pandas read_html function to scrape table of Pokémon and their attributes from the [Pokémon Database](https://pokemondb.net/pokedex/all "Pokémon Database")
    * Reset dataframe index to be the Pokédex number and dropped different sprites of the same Pokémon
-   * Separated 'Type' category into 'Type 1' and 'Type 2' when necessary, and dropped 'Total' category (althought 'Type' categories            ultimately not used for modeling)
+   * Separated 'Type' category into 'Type 1' and 'Type 2' when necessary, and dropped 'Total' category (although 'Type' categories            ultimately not used for modeling)
    * Fixed special Pokémon name cases for API calls to work
 2. Leveraged the [PokéAPI](https://pokeapi.co/docs/v2.html "PokéAPI") for additional attributes
    * Got the URLs for all of the Pokémon via API call
